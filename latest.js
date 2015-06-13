@@ -2,11 +2,11 @@
 
     Fancy.require ( {
         jQuery: false,
-        Fancy : "1.0.0"
+        Fancy : "1.0.1"
     } );
     var i       = 1,
         NAME    = "FancySelect",
-        VERSION = "1.0.0",
+        VERSION = "1.0.1",
         logged  = false;
 
     function nameEvent ( event, name ) {
@@ -490,6 +490,8 @@
 
     Fancy.select     = VERSION;
     Fancy.api.select = function ( settings ) {
-        return this.set ( FancySelect, settings );
+        return this.set ( NAME, function ( el ) {
+            return new FancySelect ( el, settings );
+        } );
     };
 }) ( jQuery );
