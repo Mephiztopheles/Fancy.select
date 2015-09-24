@@ -198,7 +198,7 @@
 
         if ( !SELF.settings.fallback ) {
             if ( SELF.options [ 0 ].hasClass( SELF.name + '-option-reset' ) ) {
-                SELF.settings.fallback = SELF.options [ 0 ].data( 'text' ) || SELF.options [ 0 ].html();
+                SELF.settings.fallback = SELF.options [ 0 ].data( 'text' ) || SELF.options [ 0 ].text();
             } else {
                 SELF.settings.fallback = SELF.element.attr( 'placeholder' );
             }
@@ -349,7 +349,7 @@
                     var  // is first option ?
                         first         = t.hasClass( SELF.name + '-option-reset' ) || t.parent().hasClass( SELF.name + '-option-reset' ),
                         // is first selected ?
-                        selectedFirst = SELF.client.options.find( "." + SELF.name + "-option" ).first().hasClass( 'selected' ) && SELF.client.options.find( "." + SELF.name + "-option" ).first().hasClass( SELF.name + '-option-reset' );
+                        selectedFirst = SELF.options[ 0 ].hasClass( 'selected' ) && SELF.options[ 0 ].hasClass( SELF.name + '-option-reset' );
 
                     // case of selectedValue is in List
                     if ( t.hasClass( 'selected' ) ) {
@@ -380,12 +380,12 @@
                         if ( !first && selectedFirst || selectedFirst ) {
                             // is not first and first is selected -- OR -- first
                             // is selected - REMOVE FROM LIST
-                            SELF.client.options.find( "." + SELF.name + "-option" ).first().removeClass( 'selected' );
+                            SELF.options[ 0 ].removeClass( 'selected' );
                         } else if ( first ) {
                             // is first element - REMOVE ALL FROM LIST AND
                             // REACTIVATE INIT
                             SELF.client.options.children( '.selected' ).removeClass( 'selected' );
-                            SELF.client.options.find( "." + SELF.name + "-option" ).first().addClass( 'selected' );
+                            SELF.options[ 0 ].addClass( 'selected' );
                             SELF.close();
                         }
                         value    = [];
@@ -428,8 +428,8 @@
                         var option = SELF.options [ b ];
                         if ( option.data( 'value' ) == item ) {
                             option.addClass( 'selected' );
-                            newHTML += ( a > 0 ? ', ' : '' ) + ( option.data( 'text' ) || option.html() );
-                            newText += ( a > 0 ? ', ' : '' ) + ( option.data( 'text' ) || option.children() [ 0 ].innerHTML );
+                            newHTML += ( a > 0 ? ', ' : '' ) + ( option.data( 'text' ) || option.text() );
+                            newText += ( a > 0 ? ', ' : '' ) + ( option.data( 'text' ) || option.text() );
                         }
                     }
                 } );
@@ -438,7 +438,7 @@
                 if ( children.hasClass( SELF.name + '-option-reset' ) ) {
                     children.addClass( 'selected' );
                     newHTML = children.data( 'text' ) || children.html();
-                    newText = children.data( 'text' ) || children.children() [ 0 ].innerHTML;
+                    newText = children.data( 'text' ) || children.text();
                 }
             }
         } else if ( SELF.settings.create ) {
